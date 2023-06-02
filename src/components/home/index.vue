@@ -73,13 +73,16 @@
         <v-btn :disabled="!userData.uid && !roomId" @click="Join">Join</v-btn>
       </div>
     </div>
-    <div v-else class="w-full grid grid-cols-5 r-wrap bg-slate-700">
+    <div
+      v-else
+      class="w-full grid xs:grid-cols-1 md:grid-cols-5 r-wrap bg-slate-700"
+    >
       <div
         :id="`host-${hostuid}`"
-        class="xs:w-full xs:col-span-5 md:col-span-3 xs:h-1/2 md:h-full main-screen bg-black border-2 w-full border-solid border-purple-500"
+        class="xs:w-full xs:col-span-1 md:col-span-3 xs:h-1/2 md:h-full main-screen bg-black border-2 w-full border-solid border-purple-500"
       ></div>
       <div
-        class="grid place-content-start place-items-center xs:col-span-5 md:col-span-2 p-5 grid-cols-2 w-full gap-5"
+        class="grid place-content-start place-items-center xs:col-span-1 md:col-span-2 p-5 grid-cols-2 w-full gap-5"
       >
         <div
           v-for="(i, index) in allUsers"
@@ -144,6 +147,7 @@ export default {
         this.token,
         this.userData.uid
       );
+      this.join = true;
       this.joinStream();
       client.on("user-published", this.handleUserPublished);
       // client.on("user-left", this.handleUserLeft);
@@ -161,7 +165,6 @@ export default {
     },
 
     async joinStream() {
-      this.join = true;
       this.allUsers.push(this.userData.uid);
       this.localTracks = await AgoraRTC.createMicrophoneAndCameraTracks(
         {},
@@ -230,7 +233,7 @@ header {
 
 @media (max-width: 800px) {
   .r-wrap {
-    min-height: 85vh;
+    height: 85vh;
   }
 }
 </style>
