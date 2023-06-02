@@ -1,6 +1,5 @@
 <template>
-  <div v-if="!ready"></div>
-  <div v-else class="h-screen overflow-hidden w-full">
+  <div class="h-screen overflow-hidden w-full">
     <header class="flex justify-between bg-black p-4">
       <div class="nav--list">
         <button id="members__button">
@@ -71,9 +70,7 @@
       <p v-else>No room available</p>
 
       <div class="">
-        <v-btn :disabled="!userData.uid && !roomId" @click="joinStream()"
-          >Join</v-btn
-        >
+        <v-btn :disabled="!userData.uid && !roomId" @click="Join">Join</v-btn>
       </div>
     </div>
     <div v-else class="w-full grid grid-cols-5 r-wrap bg-slate-700">
@@ -125,7 +122,6 @@ export default {
     remoteUsers: {},
     allUsers: [],
     join: false,
-    ready: false,
   }),
   methods: {
     async joinRoomInit() {
@@ -148,8 +144,8 @@ export default {
         this.token,
         this.userData.uid
       );
+      this.joinStream();
       client.on("user-published", this.handleUserPublished);
-      this.ready = true;
       // client.on("user-left", this.handleUserLeft);
     },
     async handleMemberJoined(MemberId) {
@@ -198,7 +194,7 @@ export default {
     },
 
     Join() {
-      this.joinStream();
+      this.joinRoomInit();
     },
   },
   created() {
@@ -209,7 +205,6 @@ export default {
       this.userData = currUser;
       this.roomId = this.$route.query.room;
       this.displayName = this.$route.query.name;
-      this.joinRoomInit();
     }
   },
 };
