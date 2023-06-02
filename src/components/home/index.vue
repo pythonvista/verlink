@@ -160,6 +160,7 @@ export default {
       let { name } = await rtmClient.getUserAttributesByKeys(MemberId, [
         "name",
       ]);
+      name;
       // addBotMessageToDom(`Welcome to the room ${name}! 👋`);
     },
 
