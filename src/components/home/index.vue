@@ -76,10 +76,10 @@
     <div v-else class="w-full grid grid-cols-5 r-wrap bg-slate-700">
       <div
         :id="`host-${hostuid}`"
-        class="xs:w-full col-span-3 h-full main-screen bg-black border-2 w-full border-solid border-purple-500"
+        class="xs:w-full xs:col-span-5 md:col-span-3 xs:h-1/2 md:h-full main-screen bg-black border-2 w-full border-solid border-purple-500"
       ></div>
       <div
-        class="grid place-content-start place-items-center col-span-2 p-5 grid-cols-2 w-full gap-5"
+        class="grid place-content-start place-items-center xs:col-span-5 md:col-span-2 p-5 grid-cols-2 w-full gap-5"
       >
         <div
           v-for="(i, index) in allUsers"
@@ -226,5 +226,11 @@ header {
 
 .r-wrap {
   height: 85vh;
+}
+
+@media (max-width: 800px) {
+  .r-wrap {
+    min-height: 85vh;
+  }
 }
 </style>
